@@ -26,4 +26,4 @@ def run_analysis(folder):
     print("Analysis complete. Results saved to analysis_report.json")
 
 if __name__ == "__main__":
-    run_analysis("folder")
+    run_analysis("source_codes")
