@@ -18,22 +18,41 @@ def analyze_with_deepseek(code, filename):
 You are a malware code analyst.
 Analyze this source code from {filename}.
 
-1. What is the purpose of this code? (high-level summary in plain words)
-2. Which specific lines or functions are suspicious or malicious? (with line numbers + reasoning)
-3. What coding patterns indicate malware behavior? (e.g., process injection, persistence setup, API misuse)
-4. What external libraries, APIs, or system calls are used, and why might they be suspicious?
-5. Does the code perform file system operations? (read/write/delete, suspicious paths, temp files)
-6. Does it contain network-related code? (sockets, HTTP requests, DNS lookups, hardcoded IPs/domains)
-7. Does the code manipulate processes or services? (process creation, privilege escalation, service installation)
-8. Does it interact with system resources? (registry, drivers, scheduled tasks, kernel functions)
-9. Does it use obfuscation or evasion techniques? (encoded strings, encryption, anti-VM, anti-debug tricks)
-10. Does it attempt data collection or exfiltration? (credentials, keystrokes, clipboard, environment variables)
-11. Which parts of the code look incomplete, obfuscated, or intentionally misleading?
-12. What MITRE ATT&CK techniques apply to this code? (list T-codes + explanation)
-13. What is the overall risk rating of this code? (Low / Medium / High)
-14. What recommendations should an analyst consider? (further dynamic analysis, sandbox execution, YARA rules, detection strategies)
-15. Is there any part of the code that you could not understand/interpret?
-16. Can you give a brief summary about this code in points.
+1. What is the high-level purpose of this code? Is it benign, suspicious, or malicious?
+2. What programming language and style does the code use? (any hints of auto-generated or obfuscated code)
+3. Does the code appear complete, or is it a fragment that relies on other modules?
+4. Are there hardcoded file names, extensions, or paths? If yes, are they suspicious?
+5. Does the code drop, create, or modify additional files on the system?
+6. What forensic artifacts (files, registry keys, processes, logs, or network traffic) would this code likely leave behind?
+7. What libraries, APIs, or system calls does this code use?
+8. Are any of these APIs or libraries commonly abused in malware?
+9. Are there suspicious command executions (e.g., os.system, subprocess, cmd.exe, powershell.exe)?
+10. Are there suspicious strings (IPs, domains, registry keys, commands, encoded/obfuscated text)?
+11. Does the code use obfuscation or packing techniques (base64, XOR, string manipulation)?
+12. Are there cryptographic functions (hashing, encryption, decryption)? If yes, what are they used for?
+13. Are there hardcoded credentials, API keys, or authentication bypass logic?
+14. Does the code interact with the operating system (registry, services, drivers, or OS configuration)?
+15.Does it attempt process injection, privilege escalation, or persistence mechanisms?
+16. Does it try to disable or bypass security features (firewall rules, antivirus processes, EDR tools)?
+17. Does the code collect environment/system information (e.g., username, OS version, IP, installed programs)?
+18. Does the code contain network-related functionality (sockets, HTTP requests, DNS lookups, hardcoded IPs/domains)?
+19. What protocols (HTTP, DNS, raw sockets, custom protocols) are used for communication?
+20. Does it attempt to exfiltrate data or connect to a Command-and-Control (C2) server?
+21. Does it suggest lateral movement techniques (e.g., network scanning, remote service abuse)?
+22. Does the code perform file system operations (read/write/delete/encrypt)?
+23. Does it attempt to steal or log sensitive data (keystrokes, clipboard, credentials, browser data)?
+24. Does it compress, encode, or prepare data for exfiltration?
+25. Does the code use any anti-analysis or evasion techniques (VM checks, debugger detection, sandbox evasion)?
+26. Are there timers, delays, or sleep functions to evade sandbox execution?
+27. Are there signs of polymorphism or self-modifying behavior (code generation, dynamic imports)?
+28. Which specific lines or functions in the code are most suspicious or malicious? (include line numbers and reasoning)
+29. Are there dead code sections, misleading code, or intentionally obfuscated logic?
+30. Which MITRE ATT&CK techniques (with T-codes) apply to this code, and why?
+31. What is the potential impact if this code is executed (e.g., data theft, persistence, lateral movement)?
+32. What is the overall risk rating of this code (Low / Medium / High)?
+33. What should an analyst do next? (sandbox execution, YARA rules, detection strategies, network blocking)
+34. Which parts of the code are unclear or require dynamic analysis to fully understand?
+35. Can you summarize the analysis in concise bullet points?
 """
 
     headers = {

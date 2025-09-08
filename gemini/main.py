@@ -13,7 +13,7 @@ def run_analysis(folder):
 
     for f in files:
         print(f"Analyzing {f['path']} ...")
-        gemini_result = analyze_with_gemini(f["content"], f["path"])
+        gemini_result = analyze_with_gemini(f["content"], f["path"]).splitlines()
         results.append({
             "file": f["path"],
             "hash": f["hash"],
@@ -26,4 +26,4 @@ def run_analysis(folder):
     print("Analysis complete. Results saved to code_analysis_report.json")
 
 if __name__ == "__main__":
-    run_analysis("source_codes")
+    run_analysis("sample")
